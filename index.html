@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kenya Hernández | 2D Artist · 3D Artist · Animator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--accent:#ff79c6;
+--accent2:#7dd3fc;
+--bg:#06070d;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Inter;
+background:var(--bg);
+color:white;
+overflow-x:hidden;
+}
+
+canvas{
+position:fixed;
+inset:0;
+z-index:-1;
+}
+
+.container{
+width:min(92%,1200px);
+margin:auto;
+}
+
+/* NAV */
+
+header{
+position:fixed;
+top:0;
+width:100%;
+z-index:1000;
+
+background:rgba(5,5,10,.7);
+backdrop-filter:blur(18px);
+}
+
+.nav{
+height:80px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+
+font-size:1.3rem;
+font-weight:800;
+
+background:
+linear-gradient(
+90deg,
+#ff79c6,
+#7dd3fc
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+}
+
+.links{
+
+display:flex;
+gap:30px;
+
+}
+
+.links a{
+
+color:white;
+text-decoration:none;
+
+}
+
+.menu{
+display:none;
+font-size:2rem;
+cursor:pointer;
+}
+
+.close{
+display:none;
+}
+
+.overlay{
+position:fixed;
+inset:0;
+
+background:#0007;
+
+opacity:0;
+pointer-events:none;
+
+transition:.3s;
+}
+
+.overlay.active{
+opacity:1;
+pointer-events:auto;
+}
+
+/* HERO */
+
+.hero{
+
+min-height:100vh;
+
+display:flex;
+align-items:center;
+
+}
+
+.hero-grid{
+
+display:grid;
+
+grid-template-columns:
+1fr
+1fr;
+
+gap:60px;
+
+align-items:center;
+
+}
+
+.hero h1{
+
+font-size:4.5rem;
+
+line-height:1;
+
+background:
+linear-gradient(
+90deg,
+white,
+#ffb6dd
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+}
+
+.hero p{
+
+margin-top:30px;
+
+color:#b5bfd4;
+
+font-size:1.2rem;
+
+line-height:1.9;
+
+}
+
+.hero-card{
+
+background:
+rgba(255,255,255,.03);
+
+border-radius:35px;
+
+padding:30px;
+
+border:1px solid #ffffff10;
+
+}
+
+.hero-card img{
+
+width:100%;
+
+border-radius:28px;
+
+}
+
+/* SECTION */
+
+section{
+
+padding:120px 0;
+
+}
+
+.title{
+
+text-align:center;
+
+margin-bottom:60px;
+
+}
+
+.title p{
+
+color:var(--accent);
+
+letter-spacing:4px;
+
+}
+
+.title h2{
+
+font-size:3rem;
+
+margin-top:10px;
+
+}
+
+/* GRID */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(260px,1fr));
+
+gap:30px;
+
+}
+
+.card{
+
+background:
+rgba(255,255,255,.03);
+
+padding:30px;
+
+border-radius:30px;
+
+transition:.35s;
+
+border:1px solid #ffffff10;
+
+}
+
+.card:hover{
+
+transform:
+translateY(-10px);
+
+}
+
+.icon{
+
+font-size:2rem;
+
+margin-bottom:15px;
+
+}
+
+/* GALLERY */
+
+.gallery{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(320px,1fr));
+
+gap:25px;
+
+}
+
+.art{
+
+overflow:hidden;
+
+border-radius:30px;
+
+background:#111;
+
+}
+
+.art img{
+
+width:100%;
+height:260px;
+
+object-fit:cover;
+
+transition:.5s;
+
+}
+
+.art:hover img{
+
+transform:scale(1.08);
+
+}
+
+.info{
+
+padding:25px;
+
+}
+
+/* CONTACT */
+
+.contact{
+
+text-align:center;
+
+}
+
+.btn{
+
+display:inline-block;
+
+padding:18px 32px;
+
+border-radius:18px;
+
+background:white;
+
+color:black;
+
+font-weight:700;
+
+text-decoration:none;
+
+}
+
+/* FLOAT */
+
+.float{
+
+position:fixed;
+
+right:20px;
+bottom:20px;
+
+width:65px;
+height:65px;
+
+border-radius:50%;
+
+background:#ff79c6;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+font-size:2rem;
+
+text-decoration:none;
+
+color:white;
+
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.hero-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.hero h1{
+
+font-size:2.8rem;
+
+}
+
+.menu{
+
+display:block;
+
+}
+
+.links{
+
+position:fixed;
+
+right:-100%;
+
+top:0;
+
+width:75%;
+
+height:100vh;
+
+background:#05070f;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+transition:.35s;
+
+}
+
+.links.active{
+
+right:0;
+
+}
+
+.close{
+
+display:block;
+
+position:absolute;
+
+top:30px;
+
+right:30px;
+
+font-size:2rem;
+
+cursor:pointer;
+
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="space"></canvas>
+
+<header>
+
+<div class="container nav">
+
+<div class="logo">
+Kenya Hernández
+</div>
+
+<div class="menu"
+onclick="openMenu()">
+☰
+</div>
+
+<nav
+class="links"
+id="menu">
+
+<div
+class="close"
+onclick="closeMenu()">
+✕
+</div>
+
+<a href="#about">Sobre mí</a>
+
+<a href="#skills">Arte</a>
+
+<a href="#works">Portafolio</a>
+
+<a href="#contact">Contacto</a>
+
+</nav>
+
+</div>
+
+</header>
+
+<div
+class="overlay"
+id="overlay"
+onclick="closeMenu()">
+</div>
+
+<section class="hero">
+
+<div class="container hero-grid">
+
+<div>
+
+<h1>
+2D Artist<br>
+3D Modeler<br>
+Animator
+</h1>
+
+<p>
+
+Portafolio creativo enfocado en ilustración digital, modelado 3D y animación.
+
+Creando personajes, mundos y experiencias visuales con estilo artístico y atención al detalle.
+
+</p>
+
+</div>
+
+<div class="hero-card">
+
+<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200">
+
+</div>
+
+</div>
+
+</section>
+
+<section id="skills">
+
+<div class="container">
+
+<div class="title">
+
+<p>ÁREAS</p>
+
+<h2>Especialidades</h2>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="icon">🎨</div>
+<h3>Arte 2D</h3>
+<p>Concept art, personajes, escenarios e ilustración digital.</p>
+</div>
+
+<div class="card">
+<div class="icon">🧊</div>
+<h3>Modelado 3D</h3>
+<p>Creación de props, personajes y ambientes.</p>
+</div>
+
+<div class="card">
+<div class="icon">✨</div>
+<h3>Animación</h3>
+<p>Animaciones estilizadas y visual storytelling.</p>
+</div>
+
+<div class="card">
+<div class="icon">🎬</div>
+<h3>Producción Visual</h3>
+<p>Diseño artístico para videojuegos y medios digitales.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="works">
+
+<div class="container">
+
+<div class="title">
+
+<p>PORTAFOLIO</p>
+
+<h2>Trabajos</h2>
+
+</div>
+
+<div class="gallery">
+
+<div class="art">
+<img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97">
+<div class="info">
+<h3>Concept Art</h3>
+<p>Diseño visual e ilustración.</p>
+</div>
+</div>
+
+<div class="art">
+<img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f">
+<div class="info">
+<h3>Modelado 3D</h3>
+<p>Escultura y texturizado.</p>
+</div>
+</div>
+
+<div class="art">
+<img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935">
+<div class="info">
+<h3>Animación</h3>
+<p>Movimiento y narrativa visual.</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="contact">
+
+<div class="container contact">
+
+<div class="title">
+
+<p>CONTACTO</p>
+
+<h2>Trabajemos juntos</h2>
+
+</div>
+
+<a
+class="btn"
+href="#">
+
+Ver Portafolio Completo
+
+</a>
+
+</div>
+
+</section>
+
+<a
+class="float"
+href="#">
+✦
+</a>
+
+<script>
+
+function openMenu(){
+
+menu.classList.add("active");
+
+overlay.classList.add("active");
+
+}
+
+function closeMenu(){
+
+menu.classList.remove("active");
+
+overlay.classList.remove("active");
+
+}
+
+const canvas=document.getElementById("space");
+
+const ctx=canvas.getContext("2d");
+
+canvas.width=innerWidth;
+
+canvas.height=innerHeight;
+
+let stars=[];
+
+for(let i=0;i<140;i++){
+
+stars.push({
+
+x:Math.random()*canvas.width,
+
+y:Math.random()*canvas.height,
+
+r:Math.random()*2
+
+});
+
+}
+
+function draw(){
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+ctx.fillStyle="white";
+
+stars.forEach(s=>{
+
+ctx.beginPath();
+
+ctx.arc(
+s.x,
+s.y,
+s.r,
+0,
+6
+);
+
+ctx.fill();
+
+s.y+=0.3;
+
+if(s.y>canvas.height){
+
+s.y=0;
+
+}
+
+});
+
+requestAnimationFrame(draw);
+
+}
+
+draw();
+
+</script>
+
+</body>
+</html>
