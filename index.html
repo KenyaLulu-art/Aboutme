@@ -1,78 +1,132 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="importmap">
+{
+"imports":{
+"three":"https://unpkg.com/three/build/three.module.js",
+"three/addons/":"https://unpkg.com/three/examples/jsm/"
+}
+}
+</script>
+<title>Kenya Hernández | Arte 2D · Modelado 3D · Animación</title>
 
-<title>Kenya Hernández | 2D Artist · 3D Artist · Animator</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap" rel="stylesheet">
 
 <style>
+  .animation-video{
 
+width:100%;
+
+aspect-ratio:16/9;
+
+object-fit:cover;
+
+border-radius:24px;
+
+background:white;
+
+display:block;
+
+}
+.viewer{
+
+width:100%;
+
+height:420px;
+
+border-radius:24px;
+
+overflow:hidden;
+
+background:
+
+linear-gradient(
+180deg,
+#fff,
+#ffe6f2
+);
+
+}
 :root{
---accent:#ff79c6;
---accent2:#7dd3fc;
---bg:#06070d;
+--bg:#fff4fa;
+--card:#ffffffd0;
+--pink:#ff63b5;
+--soft:#ffd7eb;
+--text:#4e2740;
 }
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
+scroll-behavior:smooth;
 }
 
 body{
-font-family:Inter;
-background:var(--bg);
-color:white;
+font-family:Poppins;
+background:
+linear-gradient(
+180deg,
+#fff9fc,
+#ffe7f4
+);
+
+color:var(--text);
 overflow-x:hidden;
-}
-
-canvas{
-position:fixed;
-inset:0;
-z-index:-1;
-}
-
-.container{
-width:min(92%,1200px);
-margin:auto;
 }
 
 /* NAV */
 
 header{
-position:fixed;
-top:0;
-width:100%;
-z-index:1000;
 
-background:rgba(5,5,10,.7);
+position:sticky;
+
+top:0;
+
+background:#fff7fccc;
+
 backdrop-filter:blur(18px);
+
+z-index:999;
+
 }
 
 .nav{
-height:80px;
+
+max-width:1300px;
+
+margin:auto;
+
+padding:22px;
 
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 }
 
 .logo{
 
-font-size:1.3rem;
+font-size:2rem;
+
 font-weight:800;
 
 background:
 linear-gradient(
 90deg,
-#ff79c6,
-#7dd3fc
+#ff5cb0,
+#ff95d1
 );
 
 -webkit-background-clip:text;
+
 -webkit-text-fill-color:transparent;
 
 }
@@ -80,84 +134,79 @@ linear-gradient(
 .links{
 
 display:flex;
-gap:30px;
+
+gap:35px;
 
 }
 
 .links a{
 
-color:white;
 text-decoration:none;
+
+color:#cc4d90;
+
+font-weight:600;
 
 }
 
 .menu{
+
 display:none;
+
 font-size:2rem;
+
 cursor:pointer;
+
 }
 
 .close{
+
 display:none;
+
 }
 
 .overlay{
+
 position:fixed;
+
 inset:0;
 
-background:#0007;
+background:#0005;
 
 opacity:0;
+
 pointer-events:none;
 
 transition:.3s;
+
 }
 
 .overlay.active{
+
 opacity:1;
+
 pointer-events:auto;
+
 }
 
 /* HERO */
 
 .hero{
 
-min-height:100vh;
+padding:
 
-display:flex;
-align-items:center;
+140px 10%
+110px;
 
-}
-
-.hero-grid{
-
-display:grid;
-
-grid-template-columns:
-1fr
-1fr;
-
-gap:60px;
-
-align-items:center;
+text-align:center;
 
 }
 
 .hero h1{
 
-font-size:4.5rem;
+font-size:5rem;
 
 line-height:1;
-
-background:
-linear-gradient(
-90deg,
-white,
-#ffb6dd
-);
-
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
 
 }
 
@@ -165,40 +214,21 @@ white,
 
 margin-top:30px;
 
-color:#b5bfd4;
+max-width:900px;
 
-font-size:1.2rem;
+margin-inline:auto;
 
-line-height:1.9;
+line-height:2;
 
-}
-
-.hero-card{
-
-background:
-rgba(255,255,255,.03);
-
-border-radius:35px;
-
-padding:30px;
-
-border:1px solid #ffffff10;
+color:#82556e;
 
 }
 
-.hero-card img{
-
-width:100%;
-
-border-radius:28px;
-
-}
-
-/* SECTION */
+/* SECTIONS */
 
 section{
 
-padding:120px 0;
+padding:90px 8%;
 
 }
 
@@ -206,15 +236,15 @@ padding:120px 0;
 
 text-align:center;
 
-margin-bottom:60px;
+margin-bottom:55px;
 
 }
 
 .title p{
 
-color:var(--accent);
+color:var(--pink);
 
-letter-spacing:4px;
+letter-spacing:5px;
 
 }
 
@@ -222,35 +252,41 @@ letter-spacing:4px;
 
 font-size:3rem;
 
-margin-top:10px;
-
 }
 
 /* GRID */
 
-.grid{
+.gallery{
 
 display:grid;
 
 grid-template-columns:
-repeat(auto-fit,minmax(260px,1fr));
 
-gap:30px;
+repeat(
+auto-fit,
+minmax(320px,1fr)
+);
+
+gap:35px;
 
 }
 
 .card{
 
-background:
-rgba(255,255,255,.03);
+background:var(--card);
 
-padding:30px;
+padding:18px;
 
-border-radius:30px;
+border-radius:32px;
+
+backdrop-filter:blur(20px);
+
+box-shadow:
+
+0 20px 60px
+rgba(255,95,179,.15);
 
 transition:.35s;
-
-border:1px solid #ffffff10;
 
 }
 
@@ -261,51 +297,19 @@ translateY(-10px);
 
 }
 
-.icon{
-
-font-size:2rem;
-
-margin-bottom:15px;
-
-}
-
-/* GALLERY */
-
-.gallery{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(320px,1fr));
-
-gap:25px;
-
-}
-
-.art{
-
-overflow:hidden;
-
-border-radius:30px;
-
-background:#111;
-
-}
-
-.art img{
+.card img{
 
 width:100%;
-height:260px;
 
-object-fit:cover;
+aspect-ratio:4/3;
 
-transition:.5s;
+object-fit:contain;
 
-}
+background:white;
 
-.art:hover img{
+padding:10px;
 
-transform:scale(1.08);
+border-radius:24px;
 
 }
 
@@ -315,81 +319,64 @@ padding:25px;
 
 }
 
-/* CONTACT */
+.info h3{
 
-.contact{
-
-text-align:center;
+margin-bottom:10px;
 
 }
 
-.btn{
+.info p{
+
+line-height:1.7;
+
+color:#83556d;
+
+}
+
+.badge{
 
 display:inline-block;
 
-padding:18px 32px;
+margin-top:15px;
 
-border-radius:18px;
+padding:10px 18px;
 
-background:white;
+border-radius:999px;
 
-color:black;
+background:#ffe2f1;
+
+color:#ff4f9f;
 
 font-weight:700;
 
-text-decoration:none;
-
 }
 
-/* FLOAT */
+/* FOOTER */
 
-.float{
+footer{
 
-position:fixed;
+padding:70px;
 
-right:20px;
-bottom:20px;
+text-align:center;
 
-width:65px;
-height:65px;
-
-border-radius:50%;
-
-background:#ff79c6;
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-font-size:2rem;
-
-text-decoration:none;
-
-color:white;
+color:#b36f95;
 
 }
 
 /* MOBILE */
 
-@media(max-width:900px){
-
-.hero-grid{
-
-grid-template-columns:1fr;
-
-}
+@media(max-width:850px){
 
 .hero h1{
+font-size:3rem;
+}
 
-font-size:2.8rem;
-
+.hero p{
+font-size:1rem;
 }
 
 .menu{
-
 display:block;
-
 }
 
 .links{
@@ -404,7 +391,7 @@ width:75%;
 
 height:100vh;
 
-background:#05070f;
+background:#fff5fb;
 
 display:flex;
 
@@ -415,6 +402,8 @@ justify-content:center;
 align-items:center;
 
 transition:.35s;
+
+z-index:1000;
 
 }
 
@@ -430,7 +419,7 @@ display:block;
 
 position:absolute;
 
-top:30px;
+top:25px;
 
 right:30px;
 
@@ -440,26 +429,160 @@ cursor:pointer;
 
 }
 
+.gallery{
+
+grid-template-columns:1fr;
+
+}
+
+.title h2{
+font-size:2rem;
+}
+
 }
 
 </style>
+
 </head>
+<script type="module">
 
+import * as THREE from "three";
+
+import { FBXLoader }
+from "three/addons/loaders/FBXLoader.js";
+
+document
+.querySelectorAll(".viewer")
+.forEach(container=>{
+
+const scene=
+new THREE.Scene();
+
+scene.background=
+new THREE.Color(0xfff5fa);
+
+const camera=
+new THREE.PerspectiveCamera(
+45,
+container.clientWidth/
+container.clientHeight,
+0.1,
+1000
+);
+
+camera.position.z=6;
+
+const renderer=
+new THREE.WebGLRenderer({
+antialias:true
+});
+
+renderer.setSize(
+container.clientWidth,
+container.clientHeight
+);
+
+container.appendChild(
+renderer.domElement
+);
+
+const light=
+new THREE.HemisphereLight(
+0xffffff,
+0xffb5d8,
+2
+);
+
+scene.add(light);
+
+const loader=
+new FBXLoader();
+
+loader.load(
+
+container.dataset.model,
+
+(model)=>{
+
+scene.add(model);
+
+/* ESCALA */
+model.scale.set(
+0.02,
+0.02,
+0.02
+);
+
+/* CENTRAR */
+const box=
+new THREE.Box3()
+.setFromObject(model);
+
+const center=
+box.getCenter(
+new THREE.Vector3()
+);
+
+model.position.sub(center);
+
+/* AJUSTE PERSONALIZADO */
+model.position.x +=
+parseFloat(
+container.dataset.x || 0
+);
+
+model.position.y +=
+parseFloat(
+container.dataset.y || 0
+);
+
+model.position.z +=
+parseFloat(
+container.dataset.z || 0
+);
+
+/* ANIMACION */
+function animate(){
+
+requestAnimationFrame(
+animate
+);
+
+model.rotation.y += 0.01;
+
+renderer.render(
+scene,
+camera
+);
+
+}
+
+animate();
+
+}
+
+);
+
+});
+
+</script>
 <body>
-
-<canvas id="space"></canvas>
 
 <header>
 
-<div class="container nav">
+<div class="nav">
 
 <div class="logo">
+
 Kenya Hernández
+
 </div>
 
 <div class="menu"
 onclick="openMenu()">
+
 ☰
+
 </div>
 
 <nav
@@ -469,16 +592,16 @@ id="menu">
 <div
 class="close"
 onclick="closeMenu()">
+
 ✕
+
 </div>
 
-<a href="#about">Sobre mí</a>
+<a href="#arte" onclick="closeMenu()">Arte 2D</a>
 
-<a href="#skills">Arte</a>
+<a href="#renders" onclick="closeMenu()">Renders 3D</a>
 
-<a href="#works">Portafolio</a>
-
-<a href="#contact">Contacto</a>
+<a href="#modelos" onclick="closeMenu()">Modelos FBX</a>
 
 </nav>
 
@@ -490,240 +613,312 @@ onclick="closeMenu()">
 class="overlay"
 id="overlay"
 onclick="closeMenu()">
+
 </div>
 
 <section class="hero">
 
-<div class="container hero-grid">
-
-<div>
-
 <h1>
-2D Artist<br>
-3D Modeler<br>
-Animator
+
+Arte 2D • Modelado 3D • Animación
+
 </h1>
 
 <p>
 
-Portafolio creativo enfocado en ilustración digital, modelado 3D y animación.
-
-Creando personajes, mundos y experiencias visuales con estilo artístico y atención al detalle.
+Estudiante de la Universidad Autónoma de Nuevo León (UANL),
+en la carrera de Licenciatura en Multimedia y Animación Digital (LMAD),
+con interés en ilustración digital, modelado 3D, animación y desarrollo visual.
 
 </p>
 
-</div>
-
-<div class="hero-card">
-
-<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200">
-
-</div>
-
-</div>
-
 </section>
 
-<section id="skills">
+<!-- ARTE -->
 
-<div class="container">
+<section id="arte">
 
 <div class="title">
 
-<p>ÁREAS</p>
+<p>ILUSTRACIÓN</p>
 
-<h2>Especialidades</h2>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-<div class="icon">🎨</div>
-<h3>Arte 2D</h3>
-<p>Concept art, personajes, escenarios e ilustración digital.</p>
-</div>
-
-<div class="card">
-<div class="icon">🧊</div>
-<h3>Modelado 3D</h3>
-<p>Creación de props, personajes y ambientes.</p>
-</div>
-
-<div class="card">
-<div class="icon">✨</div>
-<h3>Animación</h3>
-<p>Animaciones estilizadas y visual storytelling.</p>
-</div>
-
-<div class="card">
-<div class="icon">🎬</div>
-<h3>Producción Visual</h3>
-<p>Diseño artístico para videojuegos y medios digitales.</p>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="works">
-
-<div class="container">
-
-<div class="title">
-
-<p>PORTAFOLIO</p>
-
-<h2>Trabajos</h2>
+<h2>Arte y Diseño</h2>
 
 </div>
 
 <div class="gallery">
 
-<div class="art">
-<img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97">
+<div class="card">
+<img src="Breakfast.jpg">
 <div class="info">
-<h3>Concept Art</h3>
-<p>Diseño visual e ilustración.</p>
+<h3>Breakfast</h3>
+<div class="badge">Ilustración</div>
 </div>
 </div>
 
-<div class="art">
-<img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f">
+<div class="card">
+<img src="lazuli_diseño final.png">
 <div class="info">
-<h3>Modelado 3D</h3>
-<p>Escultura y texturizado.</p>
+<h3>Lazuli</h3>
+<div class="badge">Concept Art</div>
 </div>
 </div>
 
-<div class="art">
-<img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935">
+<div class="card">
+<img src="pantalla principal tiny kitchen.png">
 <div class="info">
-<h3>Animación</h3>
-<p>Movimiento y narrativa visual.</p>
+<h3>Tiny Kitchen</h3>
+<div class="badge">Diseño Visual</div>
 </div>
 </div>
 
+<div class="card">
+<img src="pixel_art.png">
+<div class="info">
+<h3>Pixel Art</h3>
+<div class="badge">Pixel</div>
+</div>
+</div>
+
+<div class="card">
+<img src="pixel_art2.png">
+<div class="info">
+<h3>Pixel Art II</h3>
+<div class="badge">Pixel</div>
+</div>
 </div>
 
 </div>
 
 </section>
 
-<section id="contact">
+<!-- RENDERS -->
 
-<div class="container contact">
+<section id="renders">
 
 <div class="title">
 
-<p>CONTACTO</p>
+<p>MODELADO</p>
 
-<h2>Trabajemos juntos</h2>
+<h2>Renders 3D</h2>
 
 </div>
 
-<a
-class="btn"
-href="#">
+<div class="gallery">
 
-Ver Portafolio Completo
+<div class="card">
+<img src="Botella de vidrio.png">
+<div class="info">
+<h3>Botella de Vidrio</h3>
+<div class="badge">Render 3D</div>
+</div>
+</div>
 
-</a>
+<div class="card">
+<img src="Botella de vidrio2.png">
+<div class="info">
+<h3>Botella Variación</h3>
+<div class="badge">Render 3D</div>
+</div>
+</div>
+
+<div class="card">
+<img src="Iglesia.png">
+<div class="info">
+<h3>Iglesia</h3>
+<div class="badge">Arquitectura 3D</div>
+</div>
+</div>
+
+<div class="card">
+<img src="Iglesia2.png">
+<div class="info">
+<h3>Iglesia II</h3>
+<div class="badge">Render</div>
+</div>
+</div>
 
 </div>
 
 </section>
 
-<a
-class="float"
-href="#">
-✦
-</a>
+<!-- FBX -->
+
+
+
+<!-- ANIMACIONES -->
+<section id="animaciones">
+
+<div class="title">
+
+<p>ANIMACIÓN</p>
+
+<h2>Animaciones</h2>
+
+</div>
+
+<div class="gallery">
+
+<div class="card">
+
+<video
+class="animation-video"
+autoplay
+muted
+loop
+playsinline
+controls>
+
+<source
+src="dino.mp4"
+type="video/mp4">
+
+
+
+</video>
+
+<div class="info">
+
+<h3>Animación 3D</h3>
+
+<p>
+
+Exploración de movimiento, timing y presentación visual aplicada a personajes y escenas digitales.
+
+</p>
+
+<div class="badge">
+
+Video · Loop
+
+</div>
+
+</div>
+
+</div>
+<div class="card">
+
+<video
+class="animation-video"
+autoplay
+muted
+loop
+playsinline
+controls>
+
+<source
+src="chef video.mp4"
+type="video/mp4">
+
+
+
+</video>
+
+<div class="info">
+
+<h3>Animación 3D</h3>
+
+<p>
+
+Exploración de movimiento de nuestro chef del juego tiny kitchen.
+
+</p>
+
+<div class="badge">
+
+Video · Loop
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<video
+class="animation-video"
+autoplay
+muted
+loop
+playsinline
+controls>
+
+<source
+src="ratac.mp4"
+type="video/mp4">
+
+
+
+</video>
+
+<div class="info">
+
+<h3>Animación 3D</h3>
+
+<p>
+
+Exploración de movimiento de nuestra rata del juego tiny kitchen.
+
+</p>
+
+<div class="badge">
+
+Video · Loop
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+</section>
+
+
+
+
+</div>
+
+</section>
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+© 2026 • Kenya Hernández • UANL · LMAD
+
+</footer>
 
 <script>
 
 function openMenu(){
 
-menu.classList.add("active");
+menu.classList.add("active")
 
-overlay.classList.add("active");
+overlay.classList.add("active")
 
 }
 
 function closeMenu(){
 
-menu.classList.remove("active");
+menu.classList.remove("active")
 
-overlay.classList.remove("active");
-
-}
-
-const canvas=document.getElementById("space");
-
-const ctx=canvas.getContext("2d");
-
-canvas.width=innerWidth;
-
-canvas.height=innerHeight;
-
-let stars=[];
-
-for(let i=0;i<140;i++){
-
-stars.push({
-
-x:Math.random()*canvas.width,
-
-y:Math.random()*canvas.height,
-
-r:Math.random()*2
-
-});
+overlay.classList.remove("active")
 
 }
-
-function draw(){
-
-ctx.clearRect(
-0,
-0,
-canvas.width,
-canvas.height
-);
-
-ctx.fillStyle="white";
-
-stars.forEach(s=>{
-
-ctx.beginPath();
-
-ctx.arc(
-s.x,
-s.y,
-s.r,
-0,
-6
-);
-
-ctx.fill();
-
-s.y+=0.3;
-
-if(s.y>canvas.height){
-
-s.y=0;
-
-}
-
-});
-
-requestAnimationFrame(draw);
-
-}
-
-draw();
 
 </script>
 
